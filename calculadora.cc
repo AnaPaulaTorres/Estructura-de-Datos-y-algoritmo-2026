@@ -13,5 +13,5 @@ if (b==0)
   cout <<"no se divide entre 0 gracias ";
 else 
   cout <<"divicion "<< a/b << endl;
-return 0;ls
+return 0; 
 }
