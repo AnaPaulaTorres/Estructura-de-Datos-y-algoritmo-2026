@@ -1,0 +1,50 @@
+Nombre: Ana
+Cargo: Gerente
+Antiguedad: 10
+Salario: 5000
+------------------------
+Nombre: Paula
+Cargo: Gerente
+Antiguedad: 6
+Salario: 40
+------------------------
+Nombre: Miguel
+Cargo: Gerente
+Antiguedad: 12
+Salario: 550
+------------------------
+Nombre: Alice
+Cargo: Operario
+Antiguedad: 2
+Salario: 2000
+------------------------
+Nombre: Lucia
+Cargo: Operario
+Antiguedad: 4
+Salario: 3000
+------------------------
+Nombre: Pedro
+Cargo: Operario
+Antiguedad: 1
+Salario: 2000
+------------------------
+Nombre: Sofia
+Cargo: Operario
+Antiguedad: 2
+Salario: 2000
+------------------------
+Nombre: Luis
+Cargo: Supervisor
+Antiguedad: 3
+Salario: 3200
+------------------------
+Nombre: Jose
+Cargo: Supervisor
+Antiguedad: 8
+Salario: 4000
+------------------------
+Nombre: Elena
+Cargo: Supervisor
+Antiguedad: 6
+Salario: 3200
+------------------------
