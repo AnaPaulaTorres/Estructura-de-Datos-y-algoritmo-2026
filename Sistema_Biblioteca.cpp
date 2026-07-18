@@ -24,158 +24,182 @@ int totalUsuarios = 0;
 
 void registrarLibro()
 {
-    string codigo;
-    bool existe = false;
-
-    cout << "\n=== REGISTRAR LIBRO ===\n";
-
-    cout << "Codigo: ";
-    cin >> codigo;
-
-    for(int i = 0; i < totalLibros; i++)
+    try
     {
-        if(libros[i].codigo == codigo)
+        string codigo, titulo, autor;
+        int stock;
+
+        cout << "\n===== REGISTRAR LIBRO =====\n";
+
+        cout << "Codigo: ";
+        cin >> codigo;
+
+        for(int i = 0; i < totalLibros; i++)
         {
-            existe = true;
+            if(libros[i].codigo == codigo)
+            {
+                throw "El codigo ya existe";
+            }
         }
-    }
 
-    if(existe)
+        cin.ignore();
+
+        cout << "Titulo: ";
+        getline(cin, titulo);
+
+        if(titulo.empty())
+        {
+            throw "El titulo no puede estar vacio";
+        }
+
+        cout << "Autor: ";
+        getline(cin, autor);
+
+        cout << "Stock: ";
+        cin >> stock;
+
+        if(stock < 0)
+        {
+            throw "El stock no puede ser negativo";
+        }
+
+        libros[totalLibros].codigo = codigo;
+        libros[totalLibros].titulo = titulo;
+        libros[totalLibros].autor = autor;
+        libros[totalLibros].stock = stock;
+
+        totalLibros++;
+
+        cout << "\nLibro registrado correctamente.\n";
+    }
+    catch(const char* mensaje)
     {
-        cout << "\nERROR: El codigo ya existe.\n";
-        return;
+        cout << "\nERROR: " << mensaje << endl;
     }
-
-    libros[totalLibros].codigo = codigo;
-
-    cin.ignore();
-
-    cout << "Titulo: ";
-    getline(cin, libros[totalLibros].titulo);
-
-    if(libros[totalLibros].titulo.empty())
-    {
-        cout << "\nERROR: Titulo vacio.\n";
-        return;
-    }
-
-    cout << "Autor: ";
-    getline(cin, libros[totalLibros].autor);
-
-    cout << "Stock: ";
-    cin >> libros[totalLibros].stock;
-
-    if(libros[totalLibros].stock < 0)
-    {
-        cout << "\nERROR: Stock invalido.\n";
-        return;
-    }
-
-    totalLibros++;
-
-    cout << "\nLibro registrado correctamente.\n";
 }
 
 void buscarLibro()
 {
-    string codigo;
-    bool encontrado = false;
-
-    cout << "\nIngrese codigo del libro: ";
-    cin >> codigo;
-
-    for(int i = 0; i < totalLibros; i++)
+    try
     {
-        if(libros[i].codigo == codigo)
-        {
-            cout << "\n===== LIBRO ENCONTRADO =====\n";
-            cout << "Codigo: " << libros[i].codigo << endl;
-            cout << "Titulo: " << libros[i].titulo << endl;
-            cout << "Autor : " << libros[i].autor << endl;
-            cout << "Stock : " << libros[i].stock << endl;
+        string codigo;
 
-            encontrado = true;
-            break;
+        cout << "\nIngrese codigo del libro: ";
+        cin >> codigo;
+
+        bool encontrado = false;
+
+        for(int i = 0; i < totalLibros; i++)
+        {
+            if(libros[i].codigo == codigo)
+            {
+                cout << "\n===== LIBRO ENCONTRADO =====\n";
+                cout << "Codigo : " << libros[i].codigo << endl;
+                cout << "Titulo : " << libros[i].titulo << endl;
+                cout << "Autor  : " << libros[i].autor << endl;
+                cout << "Stock  : " << libros[i].stock << endl;
+
+                encontrado = true;
+                break;
+            }
+        }
+
+        if(!encontrado)
+        {
+            throw "Libro no encontrado";
         }
     }
-
-    if(!encontrado)
+    catch(const char* mensaje)
     {
-        cout << "\nLibro no encontrado.\n";
+        cout << "\nERROR: " << mensaje << endl;
     }
 }
 
 void registrarUsuario()
 {
-    string codigo;
-    bool existe = false;
-
-    cout << "\n=== REGISTRAR USUARIO ===\n";
-
-    cout << "Codigo: ";
-    cin >> codigo;
-
-    for(int i = 0; i < totalUsuarios; i++)
+    try
     {
-        if(usuarios[i].codigo == codigo)
+        string codigo;
+        string nombre;
+
+        cout << "\n===== REGISTRAR USUARIO =====\n";
+
+        cout << "Codigo: ";
+        cin >> codigo;
+
+        for(int i = 0; i < totalUsuarios; i++)
         {
-            existe = true;
+            if(usuarios[i].codigo == codigo)
+            {
+                throw "Usuario ya registrado";
+            }
         }
-    }
 
-    if(existe)
+        cin.ignore();
+
+        cout << "Nombre: ";
+        getline(cin, nombre);
+
+        if(nombre.empty())
+        {
+            throw "El nombre no puede estar vacio";
+        }
+
+        usuarios[totalUsuarios].codigo = codigo;
+        usuarios[totalUsuarios].nombre = nombre;
+
+        totalUsuarios++;
+
+        cout << "\nUsuario registrado correctamente.\n";
+    }
+    catch(const char* mensaje)
     {
-        cout << "\nERROR: Usuario ya registrado.\n";
-        return;
+        cout << "\nERROR: " << mensaje << endl;
     }
-
-    usuarios[totalUsuarios].codigo = codigo;
-
-    cin.ignore();
-
-    cout << "Nombre: ";
-    getline(cin, usuarios[totalUsuarios].nombre);
-
-    if(usuarios[totalUsuarios].nombre.empty())
-    {
-        cout << "\nERROR: Nombre vacio.\n";
-        return;
-    }
-
-    totalUsuarios++;
-
-    cout << "\nUsuario registrado correctamente.\n";
 }
 
 void registrarPrestamo()
 {
-    string codigo;
-
-    cout << "\nCodigo del libro: ";
-    cin >> codigo;
-
-    for(int i = 0; i < totalLibros; i++)
+    try
     {
-        if(libros[i].codigo == codigo)
+        string codigo;
+
+        cout << "\nCodigo del libro: ";
+        cin >> codigo;
+
+        bool encontrado = false;
+
+        for(int i = 0; i < totalLibros; i++)
         {
-            if(libros[i].stock <= 0)
+            if(libros[i].codigo == codigo)
             {
-                cout << "\nERROR: No hay stock disponible.\n";
-                return;
+                encontrado = true;
+
+                if(libros[i].stock <= 0)
+                {
+                    throw "No hay stock disponible";
+                }
+
+                libros[i].stock--;
+
+                cout << "\nPrestamo registrado correctamente.\n";
+                cout << "Stock actual: "
+                     << libros[i].stock
+                     << endl;
+
+                break;
             }
+        }
 
-            libros[i].stock--;
-
-            cout << "\nPrestamo realizado correctamente.\n";
-            cout << "Stock actual: "
-                 << libros[i].stock
-                 << endl;
-
-            return;
+        if(!encontrado)
+        {
+            throw "Libro no encontrado";
         }
     }
-
-    cout << "\nLibro no encontrado.\n";
+    catch(const char* mensaje)
+    {
+        cout << "\nERROR: " << mensaje << endl;
+    }
 }
 
 void mostrarCatalogo()
@@ -194,7 +218,7 @@ void mostrarCatalogo()
         cout << "\nTitulo: " << libros[i].titulo;
         cout << "\nAutor : " << libros[i].autor;
         cout << "\nStock : " << libros[i].stock;
-        cout << "\n----------------------";
+        cout << "\n--------------------------";
     }
 
     cout << endl;
@@ -206,9 +230,9 @@ int main()
 
     do
     {
-        cout << "\n\n================================";
-        cout << "\n SISTEMA DE BIBLIOTECA";
-        cout << "\n================================";
+        cout << "\n\n====================================";
+        cout << "\n SISTEMA DE GESTION DE BIBLIOTECA";
+        cout << "\n====================================";
 
         cout << "\n1. Registrar Libro";
         cout << "\n2. Buscar Libro";
@@ -217,7 +241,7 @@ int main()
         cout << "\n5. Mostrar Catalogo";
         cout << "\n0. Salir";
 
-        cout << "\n\nOpcion: ";
+        cout << "\n\nSeleccione una opcion: ";
         cin >> opcion;
 
         switch(opcion)
@@ -243,7 +267,7 @@ int main()
                 break;
 
             case 0:
-                cout << "\nFin del programa.\n";
+                cout << "\nPrograma finalizado.\n";
                 break;
 
             default:
